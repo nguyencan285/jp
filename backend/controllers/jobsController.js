@@ -175,3 +175,4 @@ exports.calculateJobSimilarity = async (req, res, next) => {
         next(new ErrorResponse('Error calculating similarity score', 500));
     }
 };
+
