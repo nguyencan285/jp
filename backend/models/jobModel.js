@@ -39,6 +39,11 @@ const jobSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    skills: {
+        type: Map,
+        of: Number, 
+        required: true
+    }
 
 
 

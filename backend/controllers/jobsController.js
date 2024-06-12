@@ -44,7 +44,23 @@ exports.singleJob = async (req, res, next) => {
         next(error);
     }
 }
+// Delete a job by ID
+exports.deleteJob = async (req, res) => {
+    try {
+        const { jobId } = req.params;
+        const job = await Job.findById(jobId);
 
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
+        await job.remove();
+
+        res.status(200).json({ success: true, message: 'Job deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server Error', error: error.message });
+    }
+};
 
 //update job by id.
 exports.updateJob = async (req, res, next) => {
@@ -136,7 +152,7 @@ const calculateSimilarityScore = (userSkills, jobSkillsMap) => {
 
     // Normalize score based on total weight
     if (totalWeight > 0) {
-        score = score / totalWeight;
+        score = score / totalWeight*100;
     }
 
     return score;

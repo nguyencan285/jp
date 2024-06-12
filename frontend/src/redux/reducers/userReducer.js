@@ -29,7 +29,7 @@ import {
 export const userReducerSignIn = (state = {}, action) => {
     switch (action.type) {
         case USER_SIGNIN_REQUEST:
-            return { loading: true, userInfo: null, isAuthenticated: false }
+            return { loading: true }
         case USER_SIGNIN_SUCCESS:
             return {
                 loading: false,

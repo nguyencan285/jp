@@ -1,21 +1,18 @@
 // src/redux/reducers/similarityReducer.js
+import {
+    SIMILARITY_REQUEST,
+    SIMILARITY_SUCCESS,
+    SIMILARITY_FAIL
+} from '../constants/similarityConstants';
 
-import { CALCULATE_SIMILARITY_REQUEST, CALCULATE_SIMILARITY_SUCCESS, CALCULATE_SIMILARITY_FAIL } from '../constants/jobconstant';
-
-const initialState = {
-    loading: false,
-    similarityScore: null,
-    error: null,
-};
-
-export const similarityReducer = (state = initialState, action) => {
+export const similarityReducer = (state = { similarityScore: null }, action) => {
     switch (action.type) {
-        case CALCULATE_SIMILARITY_REQUEST:
-            return { ...state, loading: true };
-        case CALCULATE_SIMILARITY_SUCCESS:
-            return { ...state, loading: false, similarityScore: action.payload };
-        case CALCULATE_SIMILARITY_FAIL:
-            return { ...state, loading: false, error: action.payload };
+        case SIMILARITY_REQUEST:
+            return { loading: true, similarityScore: null };
+        case SIMILARITY_SUCCESS:
+            return { loading: false, similarityScore: action.payload };
+        case SIMILARITY_FAIL:
+            return { loading: false, error: action.payload };
         default:
             return state;
     }

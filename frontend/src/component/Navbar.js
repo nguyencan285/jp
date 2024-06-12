@@ -22,7 +22,6 @@ import { toggleActionTheme } from '../redux/actions/themeAction';
 
 const pages = ['Home', 'Log In'];
 
-
 const Navbar = () => {
     //show / hide button
     const { userInfo } = useSelector(state => state.signIn);
@@ -56,8 +55,6 @@ const Navbar = () => {
             navigate('/');
         }, 500)
     }
-
-
 
     return (
         <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
@@ -140,7 +137,6 @@ const Navbar = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/* menu desktop */}
-
                         <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}>
@@ -148,15 +144,16 @@ const Navbar = () => {
                                 Home
                             </Link>
                         </Button>
-                        <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}>
-                            <Link to="/register" style={{ color: 'white', textDecoration: "none" }}>
-                                Register
-                            </Link>
-                        </Button>
-
-
+                        {/* Conditionally render the Register button based on whether the user is logged in */}
+                        {userInfo ? null : (
+                            <Button
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}>
+                                <Link to="/register" style={{ color: 'white', textDecoration: "none" }}>
+                                    Register
+                                </Link>
+                            </Button>
+                        )}
                     </Box>
                     <IconButton sx={{ mr: 4 }} onClick={() => dispatch(toggleActionTheme())}>
                         {palette.mode === "dark" ? (
@@ -197,28 +194,21 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-
-
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/admin/dashboard">Admin Dashboard</Link></Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/user/dashboard">User Dashboard</Link></Typography>
                             </MenuItem>
-
-                            {
-                                !userInfo ?
-
-                                    <MenuItem onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/login">Log In</Link></Typography>
-                                    </MenuItem> :
-
-                                    <MenuItem onClick={logOutUser}>
-                                        <Typography style={{ textDecoration: "none", color: palette.secondary.main }} textAlign="center">Log Out</Typography>
-                                    </MenuItem>
-                            }
-
-
+                            {!userInfo ? (
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/login">Log In</Link></Typography>
+                                </MenuItem>
+                            ) : (
+                                <MenuItem onClick={logOutUser}>
+                                    <Typography style={{ textDecoration: "none", color: palette.secondary.main }} textAlign="center">Log Out</Typography>
+                                </MenuItem>
+                            )}
                         </Menu>
                     </Box>
                 </Toolbar>
@@ -226,4 +216,5 @@ const Navbar = () => {
         </AppBar>
     );
 }
+
 export default Navbar;
