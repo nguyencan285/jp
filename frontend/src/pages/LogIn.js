@@ -33,9 +33,9 @@ const LogIn = () => {
         if (isAuthenticated) {
             if (userInfo.role === 1) {
                 navigate('/admin/dashboard');
-            } else {
-                navigate('/user/dashboard');
-            }
+            } else if (userInfo.role === 2) {
+                navigate('/hr/dashboard');
+            } else {navigate('/');}
         }
 
         // if (isAuthenticated) {

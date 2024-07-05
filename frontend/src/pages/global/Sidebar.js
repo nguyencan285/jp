@@ -83,20 +83,28 @@ const SidebarAdm = () => {
 
                         >
                             {
-                                userInfo && userInfo.role === 1 ?
-                                    <>
-                                        <MenuItem component={<Link to="/admin/dashboard" />} icon={<DashboardIcon />}> Dashboard </MenuItem>
-                                        <MenuItem component={<Link to="/admin/users" />} icon={<GroupAddIcon />}> Users </MenuItem>
-                                        <MenuItem component={<Link to="/admin/jobs" />} icon={<WorkIcon />}> Jobs </MenuItem>
-                                        <MenuItem component={<Link to="/admin/category" />} icon={<CategoryIcon />}> Category </MenuItem>
-                                    </> :
-                                    <>
-                                        <MenuItem component={<Link to="/user/dashboard" />} icon={<DashboardIcon />}> Dashboard </MenuItem>
-                                        <MenuItem component={<Link to="/user/jobs" />} icon={<WorkHistoryIcon />}> Applied Jobs </MenuItem>
-                                        <MenuItem component={<Link to="/user/info" />} icon={<Person3Icon />}> Personal Info </MenuItem>
-                                    </>
-                            }
+                        userInfo && userInfo.role === 1 ? (
+                            <>
+                                <MenuItem component={<Link to="/admin/dashboard" />} icon={<DashboardIcon />}> Dashboard </MenuItem>
+                                <MenuItem component={<Link to="/admin/users" />} icon={<GroupAddIcon />}> Users </MenuItem>
+                                <MenuItem component={<Link to="/admin/jobs" />} icon={<WorkIcon />}> Jobs </MenuItem>
+                                <MenuItem component={<Link to="/admin/category" />} icon={<CategoryIcon />}> Category </MenuItem>
+                            </>
+                        ) : userInfo && userInfo.role === 2 ? (
+                            <>
+                                <MenuItem component={<Link to="/hr/dashboard" />} icon={<DashboardIcon />}> View posted Jobs </MenuItem>
+                                <MenuItem component={<Link to="/hr/applications" />} icon={<DashboardIcon />}> View Candidats </MenuItem>
 
+                                
+                            </>
+                        ) : (
+                            <>
+                                <MenuItem component={<Link to="/user/dashboard" />} icon={<DashboardIcon />}> Dashboard </MenuItem>
+                                <MenuItem component={<Link to="/user/jobs" />} icon={<WorkHistoryIcon />}> Applied Jobs </MenuItem>
+                                <MenuItem component={<Link to="/user/info" />} icon={<Person3Icon />}> Personal Info </MenuItem>
+                            </>
+                        )
+                    }
                         </Menu>
                     </Box>
                     <Box sx={{ pb: 2 }}>

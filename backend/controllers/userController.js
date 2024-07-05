@@ -102,7 +102,7 @@ exports.createUserJobsHistory = async (req, res, next) => {
 
     } catch (error) {
         return next(error);
-    }
+    } 
 }
 
 

@@ -55,7 +55,42 @@ const Navbar = () => {
             navigate('/');
         }, 500)
     }
+    const getDashboardLink = () => {
+        if (!userInfo) return null;
 
+        switch (userInfo.role) {
+            case 1:
+                return (
+                    <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">
+                            <Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/admin/dashboard">
+                                Admin Dashboard
+                            </Link>
+                        </Typography>
+                    </MenuItem>
+                );
+            case 2:
+                return (
+                    <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">
+                            <Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/hr/dashboard">
+                                HR Dashboard
+                            </Link>
+                        </Typography>
+                    </MenuItem>
+                );
+            default:
+                return (
+                    <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">
+                            <Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/user/dashboard">
+                                User Dashboard
+                            </Link>
+                        </Typography>
+                    </MenuItem>
+                );
+        }
+    };
     return (
         <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
             <Container >
@@ -194,21 +229,23 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/admin/dashboard">Admin Dashboard</Link></Typography>
-                            </MenuItem>
-                            <MenuItem onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/user/dashboard">User Dashboard</Link></Typography>
-                            </MenuItem>
-                            {!userInfo ? (
-                                <MenuItem onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center"><Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/login">Log In</Link></Typography>
-                                </MenuItem>
-                            ) : (
-                                <MenuItem onClick={logOutUser}>
-                                    <Typography style={{ textDecoration: "none", color: palette.secondary.main }} textAlign="center">Log Out</Typography>
-                                </MenuItem>
-                            )}
+                            {getDashboardLink()}
+            {!userInfo ? (
+                <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">
+                        <Link style={{ textDecoration: "none", color: palette.secondary.main }} to="/login">
+                            Log In
+                        </Link>
+                    </Typography>
+                </MenuItem>
+            ) : (
+                <MenuItem onClick={logOutUser}>
+                    <Typography style={{ textDecoration: "none", color: palette.secondary.main }} textAlign="center">
+                        Log Out
+                    </Typography>
+                </MenuItem>
+            )}
+       
                         </Menu>
                     </Box>
                 </Toolbar>

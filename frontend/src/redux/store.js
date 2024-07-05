@@ -1,5 +1,3 @@
-// src/redux/store.js
-
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
@@ -8,21 +6,24 @@ import {
     loadJobReducer,
     loadJobSingleReducer,
     registerAjobReducer,
-    updateJobReducer
+    updateJobReducer,
+    hrJobsReducer,
+    jobApplyReducer, hrHistoryReducer,
+    hrJobApplicationsReducer 
 } from './reducers/jobReducer';
-
 import {
     createJobTypeReducer,
     loadJobTypeReducer
+    
 } from './reducers/jobTypeReducer';
-
 import {
     allUserReducer,
     userApplyJobReducer,
     userReducerLogout,
     userReducerProfile,
     userReducerSignIn,
-    userReducerSignUp
+    userReducerSignUp,
+    userProfileUpdateReducer  
 } from './reducers/userReducer';
 
 import { modeReducer } from './reducers/themeModeReducer';
@@ -44,7 +45,12 @@ const reducer = combineReducers({
     deleteJob: deleteJobReducer,
     createJobType: createJobTypeReducer,
     updateJob: updateJobReducer,
-    similarityScore: similarityReducer, // Add similarity reducer
+    similarityScore: similarityReducer, 
+    hrJobs: hrJobsReducer,
+    userUpdate: userProfileUpdateReducer,
+    jobApply: jobApplyReducer,
+    hrHistory: hrHistoryReducer,
+    hrJobApplications:hrJobApplicationsReducer 
 });
 
 //initial state

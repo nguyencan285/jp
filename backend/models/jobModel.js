@@ -32,7 +32,7 @@ const jobSchema = new mongoose.Schema({
     jobType: {
         type: ObjectId,
         ref: "JobType",
-        required: true
+        required: false
     },
     user: {
         type: ObjectId,
@@ -43,7 +43,12 @@ const jobSchema = new mongoose.Schema({
         type: Map,
         of: Number, 
         required: true
-    }
+    },
+    applicants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }]
+    
 
 
 

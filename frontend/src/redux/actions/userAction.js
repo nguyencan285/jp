@@ -18,11 +18,37 @@ import {
     USER_SIGNIN_SUCCESS,
     USER_SIGNUP_FAIL,
     USER_SIGNUP_REQUEST,
-    USER_SIGNUP_SUCCESS
+    USER_SIGNUP_SUCCESS,
+    USER_UPDATE_REQUEST,
+    USER_UPDATE_SUCCESS,
+    USER_UPDATE_FAIL
 } from '../constants/userConstant';
 
+export const updateUserProfile = (id, userInfo) => async (dispatch) => {
+    dispatch({ type: USER_UPDATE_REQUEST });
 
+    try {
+        const { data } = await axios.put(`/api/user/edit/${id}`, userInfo);
+        
+        dispatch({
+            type: USER_UPDATE_SUCCESS,
+            payload: data
+        });
 
+        toast.success('Profile updated successfully!');
+    } catch (error) {
+        dispatch({
+            type: USER_UPDATE_FAIL,
+            payload: error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        });
+
+        toast.error(error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message);
+    }
+};
 export const userSignInAction = (user) => async (dispatch) => {
     dispatch({ type: USER_SIGNIN_REQUEST });
     try {

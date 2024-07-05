@@ -62,7 +62,7 @@ const DashUsers = () => {
             width: 200,
             renderCell: (values) => (
                 <Box sx={{ display: "flex", justifyContent: "space-between", width: "170px" }}>
-                    <Button variant="contained"><Link style={{ color: "white", textDecoration: "none" }} to={`/admin/edit/user/${values.row._id}`}>Edit</Link></ Button>
+                    
                     < Button onClick={(e) => deleteUserById(e, values.row._id)} variant="contained" color="error">Delete</ Button>
                 </Box>
             )
@@ -76,9 +76,7 @@ const DashUsers = () => {
                 <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
                     All users
                 </Typography>
-                <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
-                    <Button variant='contained' color="success" startIcon={<AddIcon />}> Create user</Button>
-                </Box>
+                
                 <Paper sx={{ bgcolor: "secondary.midNightBlue" }} >
 
                     <Box sx={{ height: 400, width: '100%' }}>

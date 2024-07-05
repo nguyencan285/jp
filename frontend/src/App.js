@@ -14,6 +14,7 @@ import AdminRoute from './component/AdminRoute';
 import Layout from './pages/global/Layout';
 import UserJobsHistory from './pages/user/UserJobsHistory';
 import UserInfoDashboard from './pages/user/UserInfoDashboard';
+import UserInfoEdit from './pages/user/UserInfoEdit';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import SingleJob from './pages/SingleJob';
 import DashUsers from './pages/admin/DashUsers';
@@ -23,17 +24,20 @@ import DashCategory from './pages/admin/DashCategory';
 import DashCreateJob from './pages/admin/DashCreateJob';
 import DashCreateCategory from './pages/admin/DashCreateCategory';
 import DashEditJob from './pages/admin/DashEditJob';
-
-
+import HrDashboard from './pages/admin/HrDashboard';
+import HrRoute from './component/HrRoute';
 import { createTheme } from '@mui/material/styles';
 import { themeColors } from './theme'
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
+import EditCategory from './pages/admin/EditCategory';
+import HRJobApplications from './pages/admin/HRJobApplications';
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
 const UserInfoDashboardHOC = Layout(UserInfoDashboard);
+const UserInfoEditdHOC = Layout(UserInfoEdit);
 const AdminDashboardHOC = Layout(AdminDashboard);
 const DashUsersHOC = Layout(DashUsers);
 const DashJobsHOC = Layout(DashJobs);
@@ -42,8 +46,10 @@ const DashCreateJobHOC = Layout(DashCreateJob)
 const DashCreateCategoryHOC = Layout(DashCreateCategory)
 const DashAdminEditJobHOC = Layout(DashEditJob);
 
+const DashHrJobHOC = Layout(HrDashboard);
 
-
+const EditCategoryHOC = Layout(EditCategory);
+const HRAll=Layout(HRJobApplications)
 
 
 const App = () => {
@@ -71,9 +77,18 @@ const App = () => {
                             <Route path='/admin/job/create' element={<AdminRoute><DashCreateJobHOC /></AdminRoute>} />
                             <Route path='/admin/edit/job/:id' element={<AdminRoute><DashAdminEditJobHOC /></AdminRoute>} />
                             <Route path='/admin/category/create' element={<AdminRoute><DashCreateCategoryHOC /></AdminRoute>} />
+                            <Route path='/admin/edit/category/:id' element={<AdminRoute><EditCategoryHOC /></AdminRoute>} />
                             <Route path='/user/dashboard' element={<UserRoute>< UserDashboardHOC /></UserRoute>} />
                             <Route path='/user/jobs' element={<UserRoute>< UserJobsHistoryHOC /></UserRoute>} />
                             <Route path='/user/info' element={<UserRoute>< UserInfoDashboardHOC /></UserRoute>} />
+                            <Route path='/user/edit' element={<UserRoute>< UserInfoEditdHOC /></UserRoute>} />
+                            <Route path='/hr/dashboard' element={<HrRoute>< DashHrJobHOC  /></HrRoute>} />
+                            <Route path='/hr/job/create' element={<HrRoute><DashCreateJobHOC /></HrRoute>} />
+                            <Route path='/hr/edit/job/:id' element={<HrRoute><DashAdminEditJobHOC /></HrRoute>} />
+                            <Route path="/hr/applications" element={<HrRoute><HRAll /></HrRoute>}  />
+                           
+                            
+                            
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>

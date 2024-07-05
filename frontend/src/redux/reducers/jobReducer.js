@@ -22,9 +22,55 @@ import {
 
     CALCULATE_SIMILARITY_REQUEST,
     CALCULATE_SIMILARITY_SUCCESS,
-    CALCULATE_SIMILARITY_FAIL
+    CALCULATE_SIMILARITY_FAIL,
+    HR_JOBS_REQUEST,
+    HR_JOBS_SUCCESS,
+    HR_JOBS_FAIL,
+   
+    JOB_APPLY_REQUEST, JOB_APPLY_SUCCESS, JOB_APPLY_FAIL,
+         HR_JOBS_LOAD_REQUEST, HR_JOBS_LOAD_SUCCESS, HR_JOBS_LOAD_FAIL
+        ,
+        HR_JOB_APPLICATIONS_REQUEST,
+    HR_JOB_APPLICATIONS_SUCCESS,
+    HR_JOB_APPLICATIONS_FAIL,
 } from "../constants/jobconstant"
+export const hrJobApplicationsReducer = (state = { jobs: [] }, action) => {
+    switch (action.type) {
+        case HR_JOB_APPLICATIONS_REQUEST:
+            return { loading: true, jobs: [] };
+        case HR_JOB_APPLICATIONS_SUCCESS:
+            return { loading: false, jobs: action.payload };
+        case HR_JOB_APPLICATIONS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+export const jobApplyReducer = (state = {}, action) => {
+    switch (action.type) {
+        case JOB_APPLY_REQUEST:
+            return { loading: true };
+        case JOB_APPLY_SUCCESS:
+            return { loading: false, success: true };
+        case JOB_APPLY_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
 
+export const hrHistoryReducer = (state = { jobs: [] }, action) => {
+    switch (action.type) {
+        case HR_JOBS_LOAD_REQUEST:
+            return { loading: true };
+        case HR_JOBS_LOAD_SUCCESS:
+            return { loading: false, jobs: action.payload };
+        case HR_JOBS_LOAD_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
 export const calculateSimilarityReducer = (state = { similarityScore: null }, action) => {
     switch (action.type) {
         case CALCULATE_SIMILARITY_REQUEST:
@@ -152,3 +198,16 @@ export const updateJobReducer = (state = {}, action) => {
             return state;
     }
 }
+// HR Jobs Reducer
+export const hrJobsReducer = (state = { jobs: [] }, action) => {
+    switch (action.type) {
+        case HR_JOBS_REQUEST:
+            return { loading: true };
+        case HR_JOBS_SUCCESS:
+            return { loading: false, jobs: action.payload };
+        case HR_JOBS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};

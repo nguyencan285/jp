@@ -6,9 +6,43 @@ import {
     CREATE_JOB_TYPE_SUCCESS,
     JOB_TYPE_LOAD_FAIL,
     JOB_TYPE_LOAD_REQUEST,
-    JOB_TYPE_LOAD_SUCCESS
+    JOB_TYPE_LOAD_SUCCESS,
+    DELETE_JOB_TYPE_REQUEST,
+    DELETE_JOB_TYPE_SUCCESS,
+    DELETE_JOB_TYPE_FAIL,
+    EDIT_JOB_TYPE_REQUEST,
+    EDIT_JOB_TYPE_SUCCESS,
+    EDIT_JOB_TYPE_FAIL,
 } from '../constants/jobTypeConstant';
 
+
+// Delete Job Type
+export const deleteJobTypeAction = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_JOB_TYPE_REQUEST });
+        await axios.delete(`/api/type/delete/${id}`);
+        dispatch({ type: DELETE_JOB_TYPE_SUCCESS, payload: id });
+    } catch (error) {
+        dispatch({
+            type: DELETE_JOB_TYPE_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        });
+    }
+};
+
+// Edit Job Type
+export const editJobTypeAction = (id, jobTypeData) => async (dispatch) => {
+    try {
+        dispatch({ type: EDIT_JOB_TYPE_REQUEST });
+        const { data } = await axios.put(`/api/type/update/${id}`, jobTypeData);
+        dispatch({ type: EDIT_JOB_TYPE_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({
+            type: EDIT_JOB_TYPE_FAIL,
+            payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+        });
+    }
+};
 
 // load jobs type
 export const jobTypeLoadAction = () => async (dispatch) => {
